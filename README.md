@@ -133,44 +133,6 @@ Response
     ]
 }
 ```
-### Fields
-#### GET /api/v1/fields
-Returns a list of fields (for filter dropdown too). Can filter by field_group_id (optional).
-
-Request
-```url
-http://localhost:8000/api/v1/fields?field_group_id=34
-```
-
-Response
-```json
-{
-    "status": 200,
-    "data": [
-        {
-            "field_group_name": "Biogeography",
-            "name": "Native Distribution",
-            "type": "text",
-            "options": null
-        },
-        {
-            "field_group_name": "Biogeography",
-            "name": "Native Habitat",
-            "type": "select",
-            "options": [
-                "Options 1",
-                "Options 2"
-            ]
-        },
-        {
-            "field_group_name": "Biogeography",
-            "name": "Minimal Weight",
-            "type": "number",
-            "options": [],
-        }
-    ]
-}
-```
 
 ### Plants
 #### POST /api/v1/plants
