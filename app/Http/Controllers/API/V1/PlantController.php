@@ -12,6 +12,7 @@ class PlantController extends Controller
     public function index(PlantRequest $request)
     {
         $data = $request->json()->all();
+        $q = @$data['q'];
         $page = @$data['page'];
         $filters = @$data['filters'];
         $sorts = @$data['sorts'];
@@ -25,6 +26,10 @@ class PlantController extends Controller
                 'plants.name',
                 'plants.common_name',
             ])
+            ->when($q, function ($query, $q) {
+                $query->where('plants.name', 'ILIKE', '%' . $q . '%')
+                    ->orWhere('plants.common_name', 'ILIKE', '%' . $q . '%');
+            })
             ->when($filters, function ($query, $filters) {
                 foreach ($filters as $index => $filter) {
                     $method = $index === 0 ? 'where' : 'orWhere';
@@ -33,7 +38,7 @@ class PlantController extends Controller
                         if (isset($filter['text']['contains'])) {
                             $query->{$method}(function ($query) use ($filter) {
                                 $query->where('fields.name', $filter['field'])
-                                    ->where('plant_fields.text_value', 'ilike', '%' . $filter['text']['contains'] . '%');
+                                    ->where('plant_fields.text_value', 'ILIKE', '%' . $filter['text']['contains'] . '%');
                             });
                         }
                     }
