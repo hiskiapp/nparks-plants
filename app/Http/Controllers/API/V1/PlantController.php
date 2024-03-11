@@ -12,7 +12,7 @@ class PlantController extends Controller
     public function index(PlantRequest $request)
     {
         $data = $request->json()->all();
-        $q = @$data['q'];
+        $search = @$data['search'];
         $page = @$data['page'];
         $filters = @$data['filters'];
         $sorts = @$data['sorts'];
@@ -26,9 +26,9 @@ class PlantController extends Controller
                 'plants.name',
                 'plants.common_name',
             ])
-            ->when($q, function ($query, $q) {
-                $query->where('plants.name', 'ILIKE', '%' . $q . '%')
-                    ->orWhere('plants.common_name', 'ILIKE', '%' . $q . '%');
+            ->when($search, function ($query, $search) {
+                $query->where('plants.name', 'ILIKE', '%' . $search . '%')
+                    ->orWhere('plants.common_name', 'ILIKE', '%' . $search . '%');
             })
             ->when($filters, function ($query, $filters) {
                 foreach ($filters as $index => $filter) {

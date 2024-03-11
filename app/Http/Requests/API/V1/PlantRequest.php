@@ -24,6 +24,7 @@ class PlantRequest extends FormRequest
     {
         return [
             'page' => 'sometimes|integer|min:1',
+            'search' => 'sometimes|string',
 
             'filters' => 'array',
             'filters.*.field' => 'required_with:filters|string',
