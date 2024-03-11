@@ -10,24 +10,17 @@ class FieldGroupController extends Controller
 {
     public function index()
     {
-        try {
-            $fieldGroups = FieldGroup::query()
-                ->select([
-                    'id',
-                    'name'
-                ])
-                ->orderBy('id')
-                ->get();
+        $fieldGroups = FieldGroup::query()
+            ->select([
+                'id',
+                'name'
+            ])
+            ->orderBy('id')
+            ->get();
 
-            return response()->json([
-                'status' => 200,
-                'data' => $fieldGroups
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'status' => 200,
+            'data' => $fieldGroups
+        ], 200);
     }
 }

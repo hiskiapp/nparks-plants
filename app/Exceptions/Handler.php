@@ -68,6 +68,7 @@ class Handler extends ExceptionHandler
         }
 
         $response = [];
+        $response['status'] = $statusCode;
 
         switch ($statusCode) {
             case 401:
@@ -95,8 +96,6 @@ class Handler extends ExceptionHandler
             $response['trace'] = $exception->getTrace();
             $response['code'] = $exception->getCode();
         }
-
-        $response['status'] = $statusCode;
 
         return response()->json($response, $statusCode);
     }

@@ -16,52 +16,44 @@ class PlantController extends Controller
         // Filter select: equals
         // Sort: asc,desc
 
-        try {
-            $plants = PlantField::query()
-                ->join('plants', 'plant_fields.plant_id', '=', 'plants.id')
-                ->select([
-                    'plants.id',
-                    'plants.image',
-                    'plants.name',
-                    'plants.common_name',
-                ])
-                ->groupBy('plants.id')
-                ->paginate(10);
+        $plants = PlantField::query()
+            ->join('plants', 'plant_fields.plant_id', '=', 'plants.id')
+            ->select([
+                'plants.id',
+                'plants.image',
+                'plants.name',
+                'plants.common_name',
+            ])
+            ->groupBy('plants.ids')
+            ->paginate(10);
 
-            return response()->json([
-                'status' => 200,
-                'meta' => [
-                    'current_page' => $plants->currentPage(),
-                    'from' => $plants->firstItem(),
-                    'last_page' => $plants->lastPage(),
-                    'per_page' => $plants->perPage(),
-                    'total' => $plants->total(),
-                ],
-                'data' => $plants->items(),
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'status' => 200,
+            'meta' => [
+                'current_page' => $plants->currentPage(),
+                'from' => $plants->firstItem(),
+                'last_page' => $plants->lastPage(),
+                'per_page' => $plants->perPage(),
+                'total' => $plants->total(),
+            ],
+            'data' => $plants->items(),
+        ], 200);
     }
 
     public function show($id)
     {
-        try {
-            $plant = Plant::query()
-                ->select([
-                    'plants.id',
-                    'plants.image',
-                    'plants.name',
-                    'plants.common_name',
-                ])
-                ->selectSub(function ($query) {
-                    $query->selectRaw("JSON_AGG(data) as fields")
-                        ->from(function ($sub) {
-                            $sub->select('field_groups.name as field_group_name')
-                                ->selectRaw("
+        $plant = Plant::query()
+            ->select([
+                'plants.id',
+                'plants.image',
+                'plants.name',
+                'plants.common_name',
+            ])
+            ->selectSub(function ($query) {
+                $query->selectRaw("JSON_AGG(data) as fields")
+                    ->from(function ($sub) {
+                        $sub->select('field_groups.name as field_group_name')
+                            ->selectRaw("
                                     JSON_AGG(
                                         JSON_BUILD_OBJECT(
                                             'name', fields.name,
@@ -70,33 +62,27 @@ class PlantController extends Controller
                                             'number_value', plant_fields.number_value
                                         )
                                     ) as fields")
-                                ->from('field_groups')
-                                ->join('fields', 'fields.field_group_id', '=', 'field_groups.id')
-                                ->leftJoin('plant_fields', function ($join) {
-                                    $join->on('plant_fields.field_id', '=', 'fields.id')
-                                        ->on('plant_fields.plant_id', '=', 'plants.id');
-                                })
-                                ->whereRaw('(plant_fields.text_value IS NOT NULL) OR (plant_fields.number_value IS NOT NULL)')
-                                ->groupBy('field_groups.id');
-                        }, 'data');
-                }, 'field_groups')
-                ->where('plants.id', $id)
-                ->groupBy('plants.id')
-                ->firstOrFail();
+                            ->from('field_groups')
+                            ->join('fields', 'fields.field_group_id', '=', 'field_groups.id')
+                            ->leftJoin('plant_fields', function ($join) {
+                                $join->on('plant_fields.field_id', '=', 'fields.id')
+                                    ->on('plant_fields.plant_id', '=', 'plants.id');
+                            })
+                            ->whereRaw('(plant_fields.text_value IS NOT NULL) OR (plant_fields.number_value IS NOT NULL)')
+                            ->groupBy('field_groups.id');
+                    }, 'data');
+            }, 'field_groups')
+            ->where('plants.id', $id)
+            ->groupBy('plants.id')
+            ->firstOrFail();
 
-            if ($plant->field_groups) {
-                $plant->field_groups = json_decode($plant->field_groups);
-            }
-
-            return response()->json([
-                'status' => 200,
-                'data' => $plant
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => $e->getMessage()
-            ], 500);
+        if ($plant->field_groups) {
+            $plant->field_groups = json_decode($plant->field_groups);
         }
+
+        return response()->json([
+            'status' => 200,
+            'data' => $plant
+        ], 200);
     }
 }

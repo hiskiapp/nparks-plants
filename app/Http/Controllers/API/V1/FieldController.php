@@ -11,16 +11,15 @@ class FieldController extends Controller
 {
     public function index(FieldRequest $request)
     {
-        try {
-            $fieldGroupId = $request->field_group_id;
+        $fieldGroupId = $request->field_group_id;
 
-            $fields = Field::query()
-                ->join('field_groups', 'fields.field_group_id', '=', 'field_groups.id')
-                ->select([
-                    'field_groups.name as field_group_name',
-                    'fields.name',
-                    'fields.type',
-                    DB::raw('CASE
+        $fields = Field::query()
+            ->join('field_groups', 'fields.field_group_id', '=', 'field_groups.id')
+            ->select([
+                'field_groups.name as field_group_name',
+                'fields.name',
+                'fields.type',
+                DB::raw('CASE
                         WHEN fields.type = \'select\' THEN
                             (SELECT JSON_ARRAYAGG(value)
                             FROM (
@@ -32,29 +31,23 @@ class FieldController extends Controller
                             ))
                         ELSE NULL
                     END as options')
-                ])
-                ->when($fieldGroupId, function ($query, $fieldGroupId) {
-                    return $query->where('fields.field_group_id', $fieldGroupId);
-                })
-                ->orderBy('fields.id')
-                ->get()
-                ->map(function ($field) {
-                    if ($field->options) {
-                        $field->options = json_decode($field->options);
-                    }
+            ])
+            ->when($fieldGroupId, function ($query, $fieldGroupId) {
+                return $query->where('fields.field_group_id', $fieldGroupId);
+            })
+            ->orderBy('fields.id')
+            ->get()
+            ->map(function ($field) {
+                if ($field->options) {
+                    $field->options = json_decode($field->options);
+                }
 
-                    return $field;
-                });
+                return $field;
+            });
 
-            return response()->json([
-                'status' => 200,
-                'data' => $fields
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 500,
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'status' => 200,
+            'data' => $fields
+        ], 200);
     }
 }
