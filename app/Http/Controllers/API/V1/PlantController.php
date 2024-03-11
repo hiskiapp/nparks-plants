@@ -3,28 +3,85 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\PlantRequest;
 use App\Models\Plant;
 use App\Models\PlantField;
 
 class PlantController extends Controller
 {
-    public function index()
+    public function index(PlantRequest $request)
     {
-        // TODO: Implement filter and sort
-        // Filter text: contains
-        // Filter number: equals,greater_than,greater_than_or_equal_to,less_than,less_than_or_equal_to
-        // Filter select: equals
-        // Sort: asc,desc
+        $data = $request->json()->all();
+        $filters = @$data['filters'];
+        $sorts = @$data['sorts'];
 
         $plants = PlantField::query()
             ->join('plants', 'plant_fields.plant_id', '=', 'plants.id')
+            ->join('fields', 'plant_fields.field_id', '=', 'fields.id')
             ->select([
                 'plants.id',
                 'plants.image',
                 'plants.name',
                 'plants.common_name',
             ])
-            ->groupBy('plants.ids')
+            ->when($filters, function ($query, $filters) {
+                foreach ($filters as $index => $filter) {
+                    $method = $index === 0 ? 'where' : 'orWhere';
+
+                    if (isset($filter['text'])) {
+                        if (isset($filter['text']['contains'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.text_value', 'ilike', '%' . $filter['text']['contains'] . '%');
+                            });
+                        }
+                    }
+
+                    if (isset($filter['number'])) {
+                        if (isset($filter['number']['equals'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.number_value', $filter['number']['equals']);
+                            });
+                        } elseif (isset($filter['number']['greater_than'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.number_value', '>', $filter['number']['greater_than']);
+                            });
+                        } elseif (isset($filter['number']['less_than'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.number_value', '<', $filter['number']['less_than']);
+                            });
+                        } elseif (isset($filter['number']['greater_than_or_equal_to'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.number_value', '>=', $filter['number']['greater_than_or_equal_to']);
+                            });
+                        } elseif (isset($filter['number']['less_than_or_equal_to'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.number_value', '<=', $filter['number']['less_than_or_equal_to']);
+                            });
+                        }
+                    }
+
+                    if (isset($filter['select'])) {
+                        if (isset($filter['select']['equals'])) {
+                            $query->{$method}(function ($query) use ($filter) {
+                                $query->where('fields.name', $filter['field'])
+                                    ->where('plant_fields.text_value', $filter['select']['equals']);
+                            });
+                        }
+                    }
+                }
+            })
+            ->when($sorts, function ($query, $sorts) {
+                foreach ($sorts as $sort) {
+                    $query->orderBy($sort['field'], $sort['direction']);
+                }
+            })
+            ->groupBy('plants.id')
             ->paginate(10);
 
         return response()->json([
@@ -39,6 +96,7 @@ class PlantController extends Controller
             'data' => $plants->items(),
         ], 200);
     }
+
 
     public function show($id)
     {

@@ -19,6 +19,6 @@ Route::prefix('v1')->group(function () {
     Route::get('field-groups', 'App\Http\Controllers\API\V1\FieldGroupController@index');
     Route::get('fields', 'App\Http\Controllers\API\V1\FieldController@index');
 
-    Route::get('plants', 'App\Http\Controllers\API\V1\PlantController@index');
+    Route::post('plants', 'App\Http\Controllers\API\V1\PlantController@index');
     Route::get('plants/{id}', 'App\Http\Controllers\API\V1\PlantController@show');
 });
