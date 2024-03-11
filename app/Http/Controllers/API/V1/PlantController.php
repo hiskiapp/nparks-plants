@@ -12,6 +12,7 @@ class PlantController extends Controller
     public function index(PlantRequest $request)
     {
         $data = $request->json()->all();
+        $page = @$data['page'];
         $filters = @$data['filters'];
         $sorts = @$data['sorts'];
 
@@ -82,7 +83,7 @@ class PlantController extends Controller
                 }
             })
             ->groupBy('plants.id')
-            ->paginate(10);
+            ->paginate(10, ['*'], 'page', $page);
 
         return response()->json([
             'status' => 200,
