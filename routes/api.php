@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Version 1 Routes
-Route::prefix('v1')->group(function () {
+Route::group(['prefix' => 'v1', 'middleware' => 'jsonify'], function () {
     Route::get('field-groups', 'App\Http\Controllers\API\V1\FieldGroupController@index');
     Route::get('fields', 'App\Http\Controllers\API\V1\FieldController@index');
 
