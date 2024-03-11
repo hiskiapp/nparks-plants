@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
 
         // Plants
         $fields = \App\Models\Field::all();
-        foreach (range(1, 500) as $i) {
+        foreach (range(1, 6000) as $i) {
             $plant = \App\Models\Plant::create([
                 'image' => fake()->imageUrl(640, 480, 'plants'),
                 'name' => ucwords(fake()->words(3, true)),
