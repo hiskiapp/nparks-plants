@@ -1,4 +1,12 @@
 # NPARKS Plants
+## Description
+
+I used Laravel to develop this application for a Proof Of Concept to address performance issues on the NPARKS website. Some techniques I employed include:
+- Only use Query Builder to avoid Eloquent overhead
+- Versioning API
+- Dynamic fields
+- Database Indexing
+- Unit Testing
 
 ## Installation
 
