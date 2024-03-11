@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "461603cc-722b-4dcf-9f66-8dd29aaf51c7",
+		"name": "Plants",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8122992",
+		"_collection_link": "https://winter-comet-41167.postman.co/workspace/My-Workspace~8e9161b4-7efe-4350-8f51-af925bfc94fa/collection/8122992-461603cc-722b-4dcf-9f66-8dd29aaf51c7?action=share&source=collection_link&creator=8122992"
+	},
+	"item": [
+		{
+			"name": "Field Groups List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/field-groups",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"field-groups"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Field Groups List",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/field-groups",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"field-groups"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Mar 2024 09:15:29 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1s PHP/8.3.3"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.3"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Name\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Biogeography\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Classification and Characteristics\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Fields List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/fields?field_group_id=1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"fields"
+					],
+					"query": [
+						{
+							"key": "field_group_id",
+							"value": "1",
+							"description": "Field Group ID (optional)"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Fields List",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/fields?field_group_id=1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"fields"
+							],
+							"query": [
+								{
+									"key": "field_group_id",
+									"value": "1",
+									"description": "Field Group ID (optional)"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Mar 2024 09:15:54 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1s PHP/8.3.3"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.3"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"data\": [\n        {\n            \"field_group_name\": \"Name\",\n            \"name\": \"Accepted Scientific Name\",\n            \"type\": \"text\",\n            \"options\": null\n        },\n        {\n            \"field_group_name\": \"Name\",\n            \"name\": \"Family Name\",\n            \"type\": \"text\",\n            \"options\": null\n        },\n        {\n            \"field_group_name\": \"Name\",\n            \"name\": \"Species Epithet Type\",\n            \"type\": \"select\",\n            \"options\": [\n                \"a\",\n                \"ab\",\n                \"accusamus\",\n                \"accusantium\",\n                \"ad\",\n                \"adipisci\",\n                \"alias\",\n                \"aliquam\",\n                \"animi\",\n                \"aperiam\",\n                \"architecto\",\n                \"asperiores\",\n                \"aspernatur\",\n                \"atque\",\n                \"aut\",\n                \"autem\",\n                \"beatae\",\n                \"blanditiis\",\n                \"commodi\",\n                \"consectetur\",\n                \"consequatur\",\n                \"consequuntur\",\n                \"corporis\",\n                \"corrupti\",\n                \"culpa\",\n                \"cum\",\n                \"cumque\",\n                \"cupiditate\",\n                \"debitis\",\n                \"delectus\",\n                \"deleniti\",\n                \"deserunt\",\n                \"dicta\",\n                \"dignissimos\",\n                \"distinctio\",\n                \"dolor\",\n                \"dolore\",\n                \"dolorem\",\n                \"doloremque\",\n                \"dolores\",\n                \"doloribus\",\n                \"dolorum\",\n                \"ducimus\",\n                \"ea\",\n                \"eaque\",\n                \"earum\",\n                \"eius\",\n                \"eligendi\",\n                \"enim\",\n                \"eos\",\n                \"error\",\n                \"esse\",\n                \"est\",\n                \"et\",\n                \"eum\",\n                \"eveniet\",\n                \"ex\",\n                \"excepturi\",\n                \"exercitationem\",\n                \"expedita\",\n                \"explicabo\",\n                \"facere\",\n                \"fuga\",\n                \"fugiat\",\n                \"fugit\",\n                \"hic\",\n                \"id\",\n                \"illo\",\n                \"impedit\",\n                \"in\",\n                \"incidunt\",\n                \"inventore\",\n                \"ipsa\",\n                \"ipsam\",\n                \"ipsum\",\n                \"itaque\",\n                \"iure\",\n                \"iusto\",\n                \"labore\",\n                \"laboriosam\",\n                \"laborum\",\n                \"laudantium\",\n                \"libero\",\n                \"magni\",\n                \"maiores\",\n                \"maxime\",\n                \"minima\",\n                \"modi\",\n                \"molestiae\",\n                \"molestias\",\n                \"mollitia\",\n                \"nam\",\n                \"natus\",\n                \"necessitatibus\",\n                \"nemo\",\n                \"nisi\",\n                \"nobis\",\n                \"non\",\n                \"nostrum\",\n                \"numquam\",\n                \"occaecati\",\n                \"odit\",\n                \"officia\",\n                \"officiis\",\n                \"omnis\",\n                \"optio\",\n                \"pariatur\",\n                \"porro\",\n                \"possimus\",\n                \"praesentium\",\n                \"provident\",\n                \"quae\",\n                \"quaerat\",\n                \"quas\",\n                \"quasi\",\n                \"qui\",\n                \"quia\",\n                \"quibusdam\",\n                \"quidem\",\n                \"quis\",\n                \"quisquam\",\n                \"quo\",\n                \"quos\",\n                \"ratione\",\n                \"reiciendis\",\n                \"rem\",\n                \"repellat\",\n                \"repellendus\",\n                \"reprehenderit\",\n                \"rerum\",\n                \"saepe\",\n                \"sapiente\",\n                \"sed\",\n                \"sequi\",\n                \"similique\",\n                \"sint\",\n                \"sit\",\n                \"soluta\",\n                \"sunt\",\n                \"suscipit\",\n                \"tempora\",\n                \"tempore\",\n                \"temporibus\",\n                \"tenetur\",\n                \"totam\",\n                \"ullam\",\n                \"unde\",\n                \"ut\",\n                \"vel\",\n                \"veniam\",\n                \"veritatis\",\n                \"vitae\",\n                \"voluptas\",\n                \"voluptate\",\n                \"voluptatem\",\n                \"voluptates\",\n                \"voluptatibus\",\n                \"voluptatum\"\n            ]\n        },\n        {\n            \"field_group_name\": \"Name\",\n            \"name\": \"Synonyms\",\n            \"type\": \"text\",\n            \"options\": null\n        },\n        {\n            \"field_group_name\": \"Name\",\n            \"name\": \"Common Names\",\n            \"type\": \"text\",\n            \"options\": null\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Plant Detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/plants/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"plants",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Plant Detail",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/plants/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"plants",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 11 Mar 2024 09:17:03 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache/2.4.54 (Win64) OpenSSL/1.1.1s PHP/8.3.3"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.3.3"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5, max=100"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"data\": {\n        \"id\": 1,\n        \"image\": \"https://via.placeholder.com/640x480.png/00bb55?text=plants+alias\",\n        \"name\": \"Aut Quidem Reprehenderit\",\n        \"common_name\": \"Id Voluptas Id\",\n        \"field_groups\": [\n            {\n                \"field_group_name\": \"Classification and Characteristics\",\n                \"fields\": [\n                    {\n                        \"name\": \"Chromosome Number\",\n                        \"type\": \"text\",\n                        \"text_value\": \"Officiis aperiam labore quia perspiciatis modi.\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Plant Ploidy\",\n                        \"type\": \"select\",\n                        \"text_value\": \"in\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Tree or Palm - Trunk Diameter Unit\",\n                        \"type\": \"select\",\n                        \"text_value\": \"laborum\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Tree or Palm - Trunk Diameter From\",\n                        \"type\": \"number\",\n                        \"text_value\": null,\n                        \"number_value\": 9\n                    },\n                    {\n                        \"name\": \"Maximum Plant spread or Crown Width Unit\",\n                        \"type\": \"select\",\n                        \"text_value\": \"id\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Maximum Plant spread or Crown Width To\",\n                        \"type\": \"number\",\n                        \"text_value\": null,\n                        \"number_value\": 4\n                    },\n                    {\n                        \"name\": \"Maximum Plant spread or Crown Width From\",\n                        \"type\": \"number\",\n                        \"text_value\": null,\n                        \"number_value\": 7\n                    },\n                    {\n                        \"name\": \"Maximum Height To\",\n                        \"type\": \"number\",\n                        \"text_value\": null,\n                        \"number_value\": 3\n                    },\n                    {\n                        \"name\": \"Maximum Height From\",\n                        \"type\": \"number\",\n                        \"text_value\": null,\n                        \"number_value\": 2\n                    },\n                    {\n                        \"name\": \"Plant Shape\",\n                        \"type\": \"select\",\n                        \"text_value\": \"et\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Mode of Nutrition\",\n                        \"type\": \"select\",\n                        \"text_value\": \"ad\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Lifespan (in Singapore)\",\n                        \"type\": \"text\",\n                        \"text_value\": \"ipsa\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Plant Growth Form\",\n                        \"type\": \"select\",\n                        \"text_value\": \"ex\",\n                        \"number_value\": null\n                    }\n                ]\n            },\n            {\n                \"field_group_name\": \"Name\",\n                \"fields\": [\n                    {\n                        \"name\": \"Common Names\",\n                        \"type\": \"text\",\n                        \"text_value\": \"Aut maiores libero ut ratione enim.\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Synonyms\",\n                        \"type\": \"text\",\n                        \"text_value\": \"possimus\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Species Epithet Type\",\n                        \"type\": \"select\",\n                        \"text_value\": \"eos\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Family Name\",\n                        \"type\": \"text\",\n                        \"text_value\": \"Iusto qui id officia qui veniam repellat quidem.\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Accepted Scientific Name\",\n                        \"type\": \"text\",\n                        \"text_value\": \"voluptatum\",\n                        \"number_value\": null\n                    }\n                ]\n            },\n            {\n                \"field_group_name\": \"Biogeography\",\n                \"fields\": [\n                    {\n                        \"name\": \"Sightings in Singapore\",\n                        \"type\": \"select\",\n                        \"text_value\": \"dicta\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"CITES Protection\",\n                        \"type\": \"select\",\n                        \"text_value\": \"aliquid\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Local Conservation Status\",\n                        \"type\": \"select\",\n                        \"text_value\": \"aliquid\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Native Habitat\",\n                        \"type\": \"select\",\n                        \"text_value\": \"est\",\n                        \"number_value\": null\n                    },\n                    {\n                        \"name\": \"Native Distribution\",\n                        \"type\": \"text\",\n                        \"text_value\": \"Et et odit expedita aperiam fugit vero.\",\n                        \"number_value\": null\n                    }\n                ]\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Plant List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/plants?page=3",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"plants"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "3",
+							"description": "Page (pagination)"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Plant List",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/plants?page=3",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"plants"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "3",
+									"description": "Page (pagination)"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://plants.test/api/v1",
+			"type": "string"
+		}
+	]
+}
